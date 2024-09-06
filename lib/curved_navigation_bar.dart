@@ -127,32 +127,6 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
                     Positioned(
-                      bottom: -40 - (75.0 - widget.height),
-                      left: textDirection == TextDirection.rtl
-                          ? null
-                          : _pos * maxWidth,
-                      right: textDirection == TextDirection.rtl
-                          ? _pos * maxWidth
-                          : null,
-                      width: maxWidth / _length,
-                      child: Center(
-                        child: Transform.translate(
-                          offset: Offset(
-                            0,
-                            -(1 - _buttonHide) * 80,
-                          ),
-                          child: Material(
-                            color: widget.buttonBackgroundColor ?? widget.color,
-                            type: MaterialType.circle,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: _icon,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
                       left: 0,
                       right: 0,
                       bottom: 0 - (75.0 - widget.height),
@@ -188,6 +162,32 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                                   child: Center(child: item),
                                 );
                               }).toList())),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: -40 - (75.0 - widget.height),
+                      left: textDirection == TextDirection.rtl
+                          ? null
+                          : _pos * maxWidth,
+                      right: textDirection == TextDirection.rtl
+                          ? _pos * maxWidth
+                          : null,
+                      width: maxWidth / _length,
+                      child: Center(
+                        child: Transform.translate(
+                          offset: Offset(
+                            0,
+                            -(1 - _buttonHide) * 80,
+                          ),
+                          child: Material(
+                            color: widget.buttonBackgroundColor ?? widget.color,
+                            type: MaterialType.circle,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _icon,
+                            ),
+                          ),
                         ),
                       ),
                     ),
