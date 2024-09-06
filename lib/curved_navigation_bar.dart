@@ -139,12 +139,18 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                             0,
                             -(1 - _buttonHide) * 80,
                           ),
-                          child: Material(
-                            color: widget.buttonBackgroundColor ?? widget.color,
-                            type: MaterialType.circle,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: _icon,
+                          child: ClipRRect(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Material(
+                                color: widget.buttonBackgroundColor ??
+                                    widget.color,
+                                type: MaterialType.circle,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: _icon,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -154,16 +160,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                       left: 0,
                       right: 0,
                       bottom: 0 - (75.0 - widget.height),
-                      child: ClipRRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: CustomPaint(
-                            painter: NavCustomPainter(
-                                _pos, _length, widget.color, textDirection),
-                            child: Container(
-                              height: 75.0,
-                            ),
-                          ),
+                      child: CustomPaint(
+                        painter: NavCustomPainter(
+                            _pos, _length, widget.color, textDirection),
+                        child: Container(
+                          height: 75.0,
                         ),
                       ),
                     ),
