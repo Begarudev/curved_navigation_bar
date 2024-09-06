@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'dart:ui'; // Import for ImageFilter
+import 'dart:ui';
 
 import 'package:curved_navigation_bar/src/nav_custom_clipper.dart';
 import 'package:flutter/material.dart';
@@ -169,25 +169,18 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                       left: 0,
                       right: 0,
                       bottom: 0 - (75.0 - widget.height),
-                      child: ClipRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: SizedBox(
-                            height: 100.0,
-                            child: Row(
+                      child: SizedBox(
+                          height: 100.0,
+                          child: Row(
                               children: widget.items.map((item) {
-                                return NavButton(
-                                  onTap: _buttonTap,
-                                  position: _pos,
-                                  length: _length,
-                                  index: widget.items.indexOf(item),
-                                  child: Center(child: item),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                      ),
+                            return NavButton(
+                              onTap: _buttonTap,
+                              position: _pos,
+                              length: _length,
+                              index: widget.items.indexOf(item),
+                              child: Center(child: item),
+                            );
+                          }).toList())),
                     ),
                   ],
                 ),
