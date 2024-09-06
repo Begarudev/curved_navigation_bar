@@ -137,22 +137,24 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     left: 0,
                     right: 0,
                     bottom: 0 - (75.0 - widget.height),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                          sigmaX: widget.blur, sigmaY: widget.blur),
-                      child: ClipRRect(
-                        child: SizedBox(
-                            height: 100.0,
-                            child: Row(
-                                children: widget.items.map((item) {
-                              return NavButton(
-                                onTap: _buttonTap,
-                                position: _pos,
-                                length: _length,
-                                index: widget.items.indexOf(item),
-                                child: Center(child: item),
-                              );
-                            }).toList())),
+                    child: ClipRRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                            sigmaX: widget.blur, sigmaY: widget.blur),
+                        child: ClipRRect(
+                          child: SizedBox(
+                              height: 100.0,
+                              child: Row(
+                                  children: widget.items.map((item) {
+                                return NavButton(
+                                  onTap: _buttonTap,
+                                  position: _pos,
+                                  length: _length,
+                                  index: widget.items.indexOf(item),
+                                  child: Center(child: item),
+                                );
+                              }).toList())),
+                        ),
                       ),
                     ),
                   ),
