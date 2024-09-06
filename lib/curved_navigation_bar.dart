@@ -1,8 +1,7 @@
 import 'dart:math';
-import 'dart:ui';
 
+import 'package:curved_navigation_bar/src/nav_custom_clipper.dart';
 import 'package:flutter/material.dart';
-
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
@@ -112,88 +111,75 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             alignment: textDirection == TextDirection.ltr
                 ? Alignment.bottomLeft
                 : Alignment.bottomRight,
-            child: Stack(
-              children: [
-                // Apply blur effect in a separate container
-                Positioned.fill(
-                  child: Container(
-                    color: widget.backgroundColor,
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                      child: Container(
-                        color: Colors.transparent,
+            child: Container(
+              color: widget.backgroundColor,
+              width: maxWidth,
+              child: ClipRect(
+                clipper: NavCustomClipper(
+                  deviceHeight: MediaQuery.sizeOf(context).height,
+                ),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    Positioned(
+                      bottom: -40 - (75.0 - widget.height),
+                      left: textDirection == TextDirection.rtl
+                          ? null
+                          : _pos * maxWidth,
+                      right: textDirection == TextDirection.rtl
+                          ? _pos * maxWidth
+                          : null,
+                      width: maxWidth / _length,
+                      child: Center(
+                        child: Transform.translate(
+                          offset: Offset(
+                            0,
+                            -(1 - _buttonHide) * 80,
+                          ),
+                          child: Material(
+                            color: widget.buttonBackgroundColor ?? widget.color,
+                            type: MaterialType.circle,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _icon,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                // CustomPaint for the curved shape
-                Container(
-                  width: maxWidth,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: CustomPaint(
-                          painter: NavCustomPainter(
-                              _pos, _length, widget.color, textDirection),
-                          size: Size(maxWidth, widget.height),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0 - (75.0 - widget.height),
+                      child: CustomPaint(
+                        painter: NavCustomPainter(
+                            _pos, _length, widget.color, textDirection),
+                        child: Container(
+                          height: 75.0,
                         ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: SizedBox(
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0 - (75.0 - widget.height),
+                      child: SizedBox(
                           height: 100.0,
                           child: Row(
-                            children: widget.items.map((item) {
-                              return NavButton(
-                                onTap: _buttonTap,
-                                position: _pos,
-                                length: _length,
-                                index: widget.items.indexOf(item),
-                                child: Center(child: item),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: -40 - (75.0 - widget.height),
-                        left: textDirection == TextDirection.rtl
-                            ? null
-                            : _pos * maxWidth,
-                        right: textDirection == TextDirection.rtl
-                            ? _pos * maxWidth
-                            : null,
-                        width: maxWidth / _length,
-                        child: Center(
-                          child: Transform.translate(
-                            offset: Offset(
-                              0,
-                              -(1 - _buttonHide) * 80,
-                            ),
-                            child: Material(
-                              color:
-                                  widget.buttonBackgroundColor ?? widget.color,
-                              type: MaterialType.circle,
-                              elevation: 8.0,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: _icon,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                              children: widget.items.map((item) {
+                            return NavButton(
+                              onTap: _buttonTap,
+                              position: _pos,
+                              length: _length,
+                              index: widget.items.indexOf(item),
+                              child: Center(child: item),
+                            );
+                          }).toList())),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         },
