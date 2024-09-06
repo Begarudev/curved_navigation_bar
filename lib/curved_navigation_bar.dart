@@ -154,11 +154,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                       left: 0,
                       right: 0,
                       bottom: 0 - (75.0 - widget.height),
-                      child: CustomPaint(
-                        painter: NavCustomPainter(
-                            _pos, _length, widget.color, textDirection),
-                        child: ImageFiltered(
-                          imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        child: CustomPaint(
+                          painter: NavCustomPainter(
+                              _pos, _length, widget.color, textDirection),
                           child: Container(
                             height: 75.0,
                           ),
