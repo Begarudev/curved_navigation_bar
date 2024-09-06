@@ -21,6 +21,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Duration animationDuration;
   final double height;
   final double? maxWidth;
+  final double blur;
 
   CurvedNavigationBar({
     Key? key,
@@ -35,6 +36,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
     this.maxWidth,
+    this.blur = 1,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
@@ -155,7 +157,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                       right: 0,
                       bottom: 0 - (75.0 - widget.height),
                       child: ImageFiltered(
-                        imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                        imageFilter: ImageFilter.blur(
+                            sigmaX: widget.blur, sigmaY: widget.blur),
                         child: CustomPaint(
                           painter: NavCustomPainter(
                               _pos, _length, widget.color, textDirection),
