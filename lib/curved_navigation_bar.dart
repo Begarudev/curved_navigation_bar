@@ -167,7 +167,10 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                           child: CustomPaint(
                             painter: NavCustomPainter(
                                 _pos, _length, widget.color, textDirection),
-                            child: ClipOval(
+                            child: ClipRect(
+                              clipper: NavCustomClipper(
+                                deviceHeight: MediaQuery.sizeOf(context).height,
+                              ),
                               child: BackdropFilter(
                                 filter:
                                     ImageFilter.blur(sigmaX: 10, sigmaY: 10),
