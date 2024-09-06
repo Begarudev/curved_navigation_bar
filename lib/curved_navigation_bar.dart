@@ -117,15 +117,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
               children: [
                 // BackdropFilter for the background only
                 Positioned.fill(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        30.0), // Optional for rounded corners
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                      child: Container(
-                        color: widget.backgroundColor.withOpacity(0.2),
-                      ),
-                    ),
+                  child: Container(
+                    color: widget.backgroundColor.withOpacity(0.2),
                   ),
                 ),
                 // The rest of the navigation bar
@@ -171,11 +164,17 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                           left: 0,
                           right: 0,
                           bottom: 0 - (75.0 - widget.height),
-                          child: CustomPaint(
-                            painter: NavCustomPainter(
-                                _pos, _length, widget.color, textDirection),
-                            child: Container(
-                              height: 75.0,
+                          child: ClipRRect(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(
+                                  sigmaX: 10.0, sigmaY: 10.0), // Optional
+                              child: CustomPaint(
+                                painter: NavCustomPainter(
+                                    _pos, _length, widget.color, textDirection),
+                                child: Container(
+                                  height: 75.0,
+                                ),
+                              ),
                             ),
                           ),
                         ),
